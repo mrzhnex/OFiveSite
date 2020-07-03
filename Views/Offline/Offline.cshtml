@@ -1,0 +1,92 @@
+﻿@model OfflineModel
+@{
+    ViewData["Title"] = Global.SiteName;
+    <link rel="stylesheet" type="text/css" href="/css/afterlogin.css">
+}
+
+@{
+    try
+    {
+        @if (Global.Sessions[Model.UserIp].User == OFiveSite.User.Guest)
+        {
+            throw new Exception("return by ghost");
+        }
+    }
+    catch (Exception ex)
+    {
+        Global.DebugError("User with ip " + Model.UserIp + " trying to join admin-panel without login. Exception message: " + ex.Message);
+
+        <script language="JavaScript" ENGINE="text/javascript">
+            <!--
+            location = "https://admin.arkhamproject.ru"
+            //-->
+        </script>
+    }
+}
+
+@using (Html.BeginForm("Refresh", "Offline", FormMethod.Get))
+{
+    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+    <div class="lists1" align="center">
+        Игрок (SteamId64):
+        <input type="number" value="@Model.SteamId" id="SteamId" name="SteamId" onchange="this.form.submit()" class="selected" />
+    </div>
+    <div class="lists2" align="center">
+        Причина:
+        @Html.DropDownList("Reason", new SelectList(Global.reasons, "Id", "Output"), null, new { @onchange = "this.form.submit();", @class = "selected" })
+        @if (Model.Reason.Id == "3")
+        {
+            <p>
+                Рп-поведение:
+                <input value="@Model.CustomReason" id="CustomReason" name="CustomReason" onchange="this.form.submit();" class="selected" />
+            </p>
+        }
+        else if (Model.Reason.Id == "4")
+        {
+            <p>
+                Своя причина:
+                <input value="@Model.CustomReason" id="CustomReason" name="CustomReason" onchange="this.form.submit();" class="selected" />
+            </p>
+        }
+        else
+        {
+            <input type="hidden" value="@Model.CustomReason" id="CustomReason" name="CustomReason" onchange="this.form.submit();" class="selected" />
+        }
+        <p>
+            Время бана(в минутах):
+            <input type="number" value="@Model.Time" id="Time" name="Time" onchange="this.form.submit()" class="selected" />
+        </p>
+
+    </div>
+    <div class="lists3" align="center">
+        Комментарий:
+        <input value="@Model.Comment" id="Comment" name="Comment" onchange="this.form.submit();" class="selected" />
+    </div>
+
+    <div class="lists3" align="center">
+        <p>
+            @Model.Message
+        </p>
+    </div>
+}
+s
+@using (Html.BeginForm("Ban", "Offline", FormMethod.Get))
+{
+    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+    <input type="hidden" value="@Model.SteamId" id="SteamId" name="SteamId" />
+    <input type="hidden" value="@Model.Reason.Id" id="Reason" name="Reason" />
+    <input type="hidden" value="@Model.Time" id="Time" name="Time" />
+    <input type="hidden" value="@Model.Comment" id="Comment" name="Comment" />
+    <input type="hidden" value="@Model.CustomReason" id="CustomReason" name="CustomReason" />
+    <div align="center" class="ban">
+        <button type="submit" class="button">Забанить @Model.SteamId</button>
+        <img src="https://i.gifer.com/41zO.gif" alt="" height="10%" width="15%">
+    </div>
+}
+
+@using (Html.BeginForm("ToMain", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_no_blick">Обратно</button>
+    </div>
+}

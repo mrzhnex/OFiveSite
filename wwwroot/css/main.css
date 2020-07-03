@@ -1,0 +1,35 @@
+body {
+    background: #000 url(img/main.gif) repeat left top;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+a {
+    text-decoration: none;
+    color: #C0000D;
+}
+
+.knopki {
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 35%;
+    margin-right: 0.5vw;
+    background-color: rgba(181,0,0,0.15);
+    border: 2px solid rgba(138,0,9,0.5);
+    color: #C0000D;
+    border-radius: 2vw;
+}
+
+ input:hover {
+ 	transition: 1s;
+ 	transform: scale(1.1);
+ 	color: #FF0011;
+ }
+.allbuttons form {
+    display: inline;
+    margin-right: 5vw;
+}
+allbuttons {
+    margin-top: 35%;
+}

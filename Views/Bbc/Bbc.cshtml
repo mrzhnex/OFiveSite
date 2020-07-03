@@ -1,0 +1,113 @@
+﻿@model BbcModel
+@{
+    ViewData["Title"] = Global.SiteName;
+    <link rel="stylesheet" type="text/css" href="~/css/bbc.css">
+    <script src="~/js/jscolor.js"></script>
+}
+
+@{
+    try
+    {
+        @if (Global.Sessions[Model.UserIp].User == OFiveSite.User.Guest)
+        {
+            throw new Exception("return by ghost");
+        }
+    }
+    catch (Exception ex)
+    {
+        Global.DebugError("User with ip " + Model.UserIp + " trying to join admin-panel without login. Exception message: " + ex.Message);
+
+        <script language="JavaScript" ENGINE="text/javascript">
+            <!--
+            location = "https://admin.arkhamproject.ru"
+            //-->
+        </script>
+    }
+    using (Html.BeginForm("Refresh", "Bbc", FormMethod.Get, new { name = "refresh", id = "refresh" }))
+    {
+        <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+        <div class="lists1" align="center">
+            Тип оповещения:
+            @Html.DropDownList("BroadcastName", new SelectList(Global.broadcasts, "Name", "Name"), null, new { @onchange = "this.form.submit();", @class = "selected" })
+            Сервер:
+            @Html.DropDownList("Server", new SelectList(Global.servers, "ServerName", "Output"), null, new { @onchange = "this.form.submit();", @class = "selected" })
+            @{
+                switch (Model.Broadcast.BroadcastType)
+                {
+                    case BroadcastType.Bc:
+                        <input type="hidden" value="@Model.Player.Nickname" id="Player" name="Player" />
+                        <input type="hidden" value="@Model.Team.Id" id="Team" name="Team" />
+                        break;
+                    case BroadcastType.Pbc:
+                        <input type="hidden" value="@Model.Team.Id" id="Team" name="Team" />
+                        <div class="selected" style="color: #0CB300">
+                            <p>
+                                Игрок:
+                                @Html.DropDownList("Player", new SelectList(Model.Server.players, "Nickname", "Output"), null, new { @onchange = "this.form.submit();", @class = "selected" })
+                            </p>
+                        </div>
+                        break;
+                    case BroadcastType.Tbc:
+                        <input type="hidden" value="@Model.Player.Nickname" id="Player" name="Player" />
+                        <div class="selected" style="color: #0CB300">
+                            <p>
+                                Команда:
+                                @Html.DropDownList("Team", new SelectList(Global.teams, "Id", "Name"), null, new { @onchange = "this.form.submit();", @class = "selected" })
+                            </p>
+                        </div>
+                        break;
+                }
+            }
+        </div>
+        <div class="lists2" align="center">
+            <p>
+                Время отображения:
+                <input type="number" value="@Model.Time" id="Time" name="Time" onchange="this.form.submit()" class="selected" />
+            </p>
+        </div>
+        <div class="picker-colors" align="center">
+            <input id="colors" name="colors" class="jscolor" value="@Model.colors" />
+        </div>
+        <div class="frame_buttons" align="center">
+            <button type="button" onClick="doStyle('bold');">Жирный</button>
+            <button type="button" onClick="doStyle('italic');">Курсив</button>
+            <button type="button" onclick="doColor()">Цвет</button>
+            <input type="number" id="numbers" value="20" min="4" max="150">
+            <button type="button" onclick="doDo()">Применить</button>
+            <button type="button" onclick="undo()">Отменить</button>
+        </div>
+        <div class="frame" align="center">
+            <iframe id="iframe_redactor" name="iframe_redactor" width="50%" height="40%" class="selected"></iframe>
+        </div>
+        <input type="hidden" id="Text" name="Text" value="@Model.Text" />
+        <script language="JavaScript" ENGINE="text/javscript">
+            document.getElementById("iframe_redactor").contentWindow.document.designMode = "On";
+            document.getElementById("iframe_redactor").contentWindow.document.write(document.getElementById('Text').value);
+        </script>
+        <div class="lists3" align="center">
+            <p>
+                @Model.Message
+            </p>
+        </div>
+    }
+}
+@using (Html.BeginForm("BcAction", "Bbc", FormMethod.Get))
+{
+    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+    <input type="hidden" value="@Model.Server.ServerName" id="Server" name="Server" />
+    <input type="hidden" value="@Model.Broadcast.Name" id="BroadcastName" name="BroadcastName" />
+    <input type="hidden" value="@Model.Player.Nickname" id="Player" name="Player" />
+    <input type="hidden" value="@Model.Team.Id" id="Team" name="Team" />
+    <input type="hidden" value="@Model.Time" id="Time" name="Time" />
+    <input type="hidden" value="@Model.Text" id="Text2" name="Text2" />
+    <div align="center" class="ban">
+        <button type="submit" class="button" onclick="document.getElementById('Text').value = document.getElementById('iframe_redactor').contentWindow.document.documentElement.innerHTML;document.getElementById('Text2').value = document.getElementById('iframe_redactor').contentWindow.document.documentElement.innerHTML">Оповестить</button>
+    </div>
+}
+
+@using (Html.BeginForm("ToMain", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_no_blick">Обратно</button>
+    </div>
+}

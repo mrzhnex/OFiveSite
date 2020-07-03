@@ -1,0 +1,69 @@
+﻿@model CustomCommandsModel
+@{
+    ViewData["Title"] = Global.SiteName;
+    <link rel="stylesheet" type="text/css" href="~/css/afterlogin.css">
+}
+
+
+@{
+    try
+    {
+        @if (Global.Sessions[Model.UserIp].User == OFiveSite.User.Guest)
+        {
+            throw new Exception("return by ghost");
+        }
+    }
+    catch (Exception ex)
+    {
+        Global.DebugError("User with ip " + Model.UserIp + " trying to join admin-panel without login. Exception message: " + ex.Message);
+
+        <script language="JavaScript" ENGINE="text/javascript">
+            <!--
+            location = "https://admin.arkhamproject.ru"
+                    //-->
+        </script>
+    }
+}
+
+<div class="hello">
+    <p>
+        <h1>Совсем скоро...</h1>
+    </p>
+</div>
+
+@{
+    if (Global.Sessions[Model.UserIp].User.AccessLevel == 5)
+    {
+        <div class="hello">
+            Вы видите этот текст, так как у вас @Global.Sessions[Model.UserIp].User.AccessLevel уровень допуска
+        </div>
+
+
+        foreach (KeyValuePair<Command, CommandInfo> command in Model.CommandInfo)
+        {
+            if (command.Key as TranqillMaster != null)
+            {
+                <p>
+
+
+                </p>
+            }
+            else
+            {
+                <div class="hello">
+                    man wtf
+                </div>
+            }
+        }
+
+    }
+}
+
+
+@using (Html.BeginForm("ToMain", "Main", FormMethod.Get))
+{
+    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+    <div align="center" class="ban">
+        <button type="submit" class="button_no_blick">Обратно</button>
+    </div>
+}

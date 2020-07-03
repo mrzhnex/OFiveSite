@@ -1,0 +1,49 @@
+body {
+    background: #000 url(img/login.gif) repeat left top;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.login {
+    color: white;
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.login input {
+    color: black;
+    font-size: 2vw;
+    padding-right: 10%;
+}
+
+.button {
+    font-size: 2vw;
+    text-decoration: none;
+    background-color: rgba(5,77,0,0.15);
+    border: 2px solid rgba(3,51,9,0.5);
+    color: #087D00;
+    border-radius: 10px;
+}
+
+.button:hover {
+    transition: 2s;
+    transform: scale(1.1);
+}
+
+.home {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+}
+
+.home input {
+    border-radius: 10px;
+    background-color: rgba(14,213,0,0.15);
+    border: 2px solid rgba(11,172,0,0.5);
+    color: #11FF00;
+    font-size: 2vw;
+}
+
+.home input:hover {
+    transition: 2s;
+    transform: scale(1.3);
+}

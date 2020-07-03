@@ -1,0 +1,74 @@
+body {
+    background: #000 url(img/login.gif) repeat left top;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.hello, .quantity {
+    color: #087D00;
+    font-weight: bold;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.lists1, .lists2, .lists3 {
+    font-size: 1vw;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    color: #0CB300;
+    font-weight: bold;
+}
+
+.selected {
+    font-size: 1.2vw;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    color: #000000;
+    font-weight: bold;
+}
+
+.lrp1 {
+    background-color: blue;
+}
+
+.lists1 div {
+    display: inline;
+}
+
+.lists2 div {
+    display: inline;
+}
+
+.lists3 div {
+    display: inline;
+}
+
+.button_grey {
+    border-radius: 10px;
+    font-size: 4vw;
+    background-color: rgba(192,192,192,0.3);
+    border: 2px solid black;
+    color: #0B0B0B;
+}
+
+.button_red {
+    background-color: rgba(181,0,0,0.15);
+    border: 2px solid rgba(138,0,9,0.5);
+    color: #C0000D;
+    border-radius: 10px;
+    font-size: 4vw;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transition: 1s;
+    transform: scale(1.3);
+    color: black;
+}
+
+.ban {
+    margin-top: 1vw;
+    display: flex;
+    justify-content: center;
+}

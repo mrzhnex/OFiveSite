@@ -1,0 +1,142 @@
+﻿@model IndexModel
+
+@{
+    string Ip = Model.UserIp;
+    ViewData["Title"] = Global.SiteName;
+    if (!Global.Sessions.ContainsKey(Ip))
+    {
+        Global.Sessions[Ip] = Session.New(OFiveSite.User.Guest);
+    }
+
+}
+@{
+    switch (Model.UserState)
+    {
+        case UserState.FirstPage:
+            <link rel="stylesheet" type="text/css" href="/css/main.css">
+            <div class="allbuttons" align="center">
+                @using (Html.BeginForm("TryRegister", "Home", FormMethod.Get))
+                {
+                    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+                    <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+
+                    <input type="submit" value="Зарегистрироваться как администратор" class="knopki" />
+                }
+                @using (Html.BeginForm("TryJoin", "Home", FormMethod.Get))
+                {
+                    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+                    <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+
+                    <input type="submit" value="Войти как администратор" class="knopki" />
+                }
+                @using (Html.BeginForm("JoinAsGuest", "Home", FormMethod.Get))
+                {
+                    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+                    <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+
+                    <input type="submit" value="Продолжить как Гость" class="knopki" />
+                }
+            </div>
+            break;
+        case UserState.TryJoin:
+            <link rel="stylesheet" type="text/css" href="/css/login.css">
+            @using (Html.BeginForm("Join", "Home", FormMethod.Get))
+            {
+                <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+                <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+                <input type="hidden" value="@Model.UserState" id="UserState" name="UserState" />
+                <div class="login" align="center">
+                    <p>
+                        Логин:
+                    </p>
+                    <p>
+                        <input type="text" name="login" size="@Global.key_lenght" value="@(Model.Login)" />
+                    </p>
+                </div>
+                @if (Model.JoinState == JoinState.NotSend)
+                {
+                    <div class="serverusidinahuifuckyoufromkebersonandtabulawithlove" align="center">
+                        <input type="submit" value="Получить код" class="button" />
+                    </div>
+
+                }
+                @if (Model.JoinState == JoinState.Send)
+                {
+                    <div class="login" align="center">
+                        <p>
+                            Временный пароль:
+                        </p>
+                        <p>
+                            <input type="password" name="password" size="@(Global.key_lenght)" value="@(Model.Password)" />
+                        </p>
+                    </div>
+                    <div class="serverusidinahuifuckyoufromkebersonandtabulawithlove" align="center">
+                        <input type="submit" value="Войти" class="button" />
+                    </div>
+
+                }
+                <div class="login" align="center">
+                    <p>
+                        @Model.Message
+                    </p>
+                </div>
+            }
+
+            break;
+        case UserState.TryRegister:
+            <link rel="stylesheet" type="text/css" href="/css/login.css">
+            @using (Html.BeginForm("Register", "Home", FormMethod.Get))
+            {
+                <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+                <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+                <div class="login" align="center">
+                    <p>
+                        Дискод айди пользователя:
+                    </p>
+                    <p>
+                        <input type="text" name="discordid" value="@Model.DiscordId" />
+                    </p>
+                    <p>
+                        Логин (латинские буквы, от 6 до 20 символов):
+                    </p>
+                    <p>
+                        <input type="text" name="login" value="@Model.Login" />
+                    </p>
+                </div>
+                <div class="serverusidinahuifuckyoufromkebersonandtabulawithlove" align="center">
+                    <input type="submit" value="Зарегистрироваться" class="button" />
+                </div>
+                <div class="login" align="center">
+                    <p>
+                        @Model.Message
+                    </p>
+                </div>
+            }
+            break;
+        case UserState.Guest:
+            <link rel="stylesheet" type="text/css" href="/css/guest.css">
+            <h1>
+                Садись и подожди
+            </h1>
+            <div class="img" align="center">
+                <img src="https://13chairs.ru/wp-content/uploads/2018/09/111111111111-IMG_2662_STATSON-1000.jpg" alt="" height="60%" width="60%">
+            </div>
+            break;
+    }
+
+    if (Model.UserState != UserState.FirstPage)
+    {
+        <br />
+        <br />
+        @using (Html.BeginForm("ReturnToMainPage", "Home", FormMethod.Get))
+        {
+            <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+
+            <input type="hidden" value="@Model.JoinState" id="JoinState" name="JoinState" />
+            <div class="home" align="center">
+                <input type="submit" value="Вернуться на главную" />
+            </div>
+        }
+    }
+}
+

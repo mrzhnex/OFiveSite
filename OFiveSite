@@ -1,0 +1,28 @@
+#!/bin/bash
+
+case "$1" in 
+start)
+   cd /var/www/admin/ 
+   dotnet OFiveSite.dll & echo $!>/etc/OFiveSite/hit.pid
+   ;;
+stop)
+   kill `cat /etc/OFiveSite/hit.pid`
+   rm /etc/OFiveSite/hit.pid
+   ;;
+restart)
+   $0 stop
+   $0 start
+   ;;
+status)
+   if [ -e /etc/OFiveSite/hit.pid ]; then
+      echo OFiveSite is running, pid=`cat /etc/OFiveSite/hit.pid`
+   else
+      echo OFiveSite is NOT running
+      exit 1
+   fi
+   ;;
+*)
+   echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0 

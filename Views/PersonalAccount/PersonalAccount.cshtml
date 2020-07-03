@@ -1,0 +1,24 @@
+﻿@model PersonalAccountModel
+@{
+    ViewData["Title"] = Global.SiteName;
+    <link rel="stylesheet" type="text/css" href="~/css/afterlogin.css">
+}
+
+<div class="hello">
+    Имя: @Global.Sessions[Model.UserIp].User.Name
+    Уровень допуска: @Global.Sessions[Model.UserIp].User.AccessLevel
+    Идентификатор в дискорде: @Global.Sessions[Model.UserIp].User.DiscordId
+    Логин: @Global.Sessions[Model.UserIp].User.Login
+    Количество забаненных: @Global.Sessions[Model.UserIp].User.BanCount
+    Количество предупреждений: @Global.Sessions[Model.UserIp].User.WarnCount
+    Количество принятых запросов: @Global.Sessions[Model.UserIp].User.ReceiveRequestCount
+</div>
+
+@using (Html.BeginForm("ToMain", "Main", FormMethod.Get))
+{
+    <input type="hidden" value="@Model.UserIp" id="UserIp" name="UserIp" />
+    <div align="center" class="ban">
+        <button type="submit" class="button_no_blick">Обратно</button>
+    </div>
+    //захуячить сюда "реальное обратно"
+}

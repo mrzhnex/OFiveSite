@@ -1,0 +1,175 @@
+body {
+    background: #000 url(img/login.gif) repeat repeat;
+    background-size: 100%;
+}
+
+.hello, .quantity {
+    color: #087D00;
+    font-weight: bold;
+    font-size: 1vw;
+    text-align: center;
+}
+
+.lists1, .lists2, .lists3 {
+    font-size: 1.2vw;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    color: #0CB300;
+    font-weight: bold;
+}
+.selected {
+    font-size: 1vw;
+    margin-top: 0.4vh;
+    margin-left: 1vw;
+    color: #000000;
+    font-weight: bold;
+}
+.lrp1 {
+    background-color: blue;
+}
+
+.lists1 div {
+    display: inline;
+}
+
+.lists2 div {
+    display: inline;
+}
+
+.lists3 div {
+    display: inline;
+}
+
+.button {
+    background-color: rgba(181,0,0,0.15);
+    border: 2px solid rgba(138,0,9,0.5);
+    color: #C0000D;
+    border-radius: 10px;
+    font-size: 4vw;
+}
+
+.button {
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: ease 0.3s;
+    transition: ease 0.3s;
+}
+.button_no_blick {
+    background-color: rgba(181,0,0,0.15);
+    border: 2px solid rgba(138,0,9,0.5);
+    color: #C0000D;
+    border-radius: 10px;
+    font-size: 4vw;
+}
+
+.button:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fa4923;
+    opacity: 0;
+    z-index: 1;
+    -webkit-transition: ease 0.3s;
+    transition: ease 0.3s;
+}
+
+.button:after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 300px;
+    margin-left: 60px;
+    background: #8B0000;
+    position: absolute;
+    left: -40px;
+    top: -150px;
+    z-index: 1;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all 0.1s;
+    transition: all 0.1s;
+    -webkit-animation-name: slideme;
+    animation-name: slideme;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-delay: 0.05s;
+    animation-delay: 0.05s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes slideme {
+    0% {
+        left: -30px;
+        margin-left: 0px;
+    }
+
+    30% {
+        left: 110%;
+        margin-left: 80px;
+    }
+
+    100% {
+        left: 110%;
+        margin-left: 80px;
+    }
+}
+
+.ban img {
+    margin-left: 1vw;
+    width: 20%;
+    height: 25%;
+}
+
+.ban {
+    margin-top: 1vw;
+}
+
+.ban {
+    display: flex;
+    justify-content: center;
+}
+
+.picker-colors {
+    margin-top: 3vw;
+}
+
+.picker-colors input {
+    font-weight: bold;
+    font-size: 3vw;
+    text-align: center;
+}
+
+#iframe_redactor {
+    background-color: #ffffff;
+}
+
+.frame_buttons {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.frame_buttons input {
+    text-align: center;
+    width: 5vw;
+    margin-left: 2vw;
+}
+
+.frame_buttons button, .frame_buttons input {
+    margin-left: 2vw;
+    font-size: 2vw;
+    background-color: #087D00;
+    color: #ffffff;
+    border-radius: 30px;
+}
+
+.frame_buttons button:hover {
+    font-size: 2.2vw;
+    transition: 0.5s;
+}

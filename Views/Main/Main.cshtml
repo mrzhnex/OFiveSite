@@ -1,0 +1,56 @@
+﻿@model MainModel
+@{
+    ViewData["Title"] = Global.SiteName;
+    <link rel="stylesheet" type="text/css" href="/css/adminmain.css">
+}
+
+@{
+    try
+    {
+        @if (Global.Sessions[Model.UserIp].User == OFiveSite.User.Guest)
+        {
+            throw new Exception("return by ghost");
+        }
+    }
+    catch (Exception ex)
+    {
+        Global.DebugError("User with ip " + Model.UserIp + " trying to join admin-panel without login. Exception message: " + ex.Message);
+
+        <script language="JavaScript" ENGINE="text/javascript">
+            <!--
+            location = "https://admin.arkhamproject.ru"
+                    //-->
+        </script>
+    }
+}
+
+@using (Html.BeginForm("ToAdmin", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_red">Админ панель банов</button>
+    </div>
+}
+@using (Html.BeginForm("ToOffline", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_grey">Оффлайн баны</button>
+    </div>
+}
+@using (Html.BeginForm("ToUnBan", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_red">Разбаны</button>
+    </div>
+}
+@using (Html.BeginForm("ToBbc", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_red">Broadcast</button>
+    </div>
+}
+@using (Html.BeginForm("ToCustom", "Main", FormMethod.Get))
+{
+    <div align="center" class="ban">
+        <button type="submit" class="button_red">Кастомные команды</button>
+    </div>
+}

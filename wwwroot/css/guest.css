@@ -1,0 +1,17 @@
+h1 {
+    text-align: center;
+    font-size: 4vw;
+}
+
+.home input {
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.15);
+    border: 2px solid rgba(0,0,0,0.5);
+    color: black;
+    font-size: 2vw;
+}
+
+.home input:hover {
+    transition: 2s;
+    transform: rotate(1080deg);
+}
